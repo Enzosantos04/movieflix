@@ -1,38 +1,53 @@
 package com.movieflix.controller;
 
-import com.movieflix.entity.Category;
+import com.movieflix.dto.CategoryDTO;
+
 import com.movieflix.service.CategoryService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/movieflix/category")
 public class CategoryController {
-   private CategoryService categoryService;
+    private CategoryService categoryService;
 
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
     @GetMapping()
-    public List<Category> getAllCategories(){
-       return categoryService.findAll();
+    public ResponseEntity<List<CategoryDTO>> getAllCategories(){
+        List<CategoryDTO> categories = categoryService.findAll();
+        return ResponseEntity.ok(categories);
     }
 
     @PostMapping
-    public Category saveCategory(@RequestBody Category category){
-        return categoryService.saveCategory(category);
+    public ResponseEntity<String> saveCategory(@RequestBody CategoryDTO category){
+        CategoryDTO categoryDTO = categoryService.saveCategory(category);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Category create with success. " + categoryDTO.getId());
+
     }
 
     @GetMapping("/{id}")
-    public Optional<Category> getCategoryById(@PathVariable Long id){
-       return categoryService.getCategoryById(id);
+    public ResponseEntity<?> getCategoryById(@PathVariable Long id){
+       if(categoryService.getCategoryById(id) != null){
+           CategoryDTO categoryDTO = categoryService.getCategoryById(id);
+           return ResponseEntity.status(HttpStatus.FOUND).body(categoryDTO);
+       }else{
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category Not Found");
+       }
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCategoryById(@PathVariable Long id){
-       categoryService.deleteById(id);
+    public ResponseEntity<?> deleteCategoryById(@PathVariable Long id){
+        if(categoryService.getCategoryById(id) != null){
+            categoryService.deleteById(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Category deleted with success");
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category Not Found");
+        }
     }
 }
