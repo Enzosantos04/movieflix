@@ -5,6 +5,7 @@ import com.movieflix.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/movieflix/category")
@@ -23,5 +24,15 @@ public class CategoryController {
     @PostMapping
     public Category saveCategory(@RequestBody Category category){
         return categoryService.saveCategory(category);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Category> getCategoryById(@PathVariable Long id){
+       return categoryService.getCategoryById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCategoryById(@PathVariable Long id){
+       categoryService.deleteById(id);
     }
 }
