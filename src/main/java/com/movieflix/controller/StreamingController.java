@@ -26,9 +26,9 @@ public class StreamingController {
     }
 
     @PostMapping
-    public ResponseEntity<String> saveStreaming(@RequestBody StreamingDTO streaming){
+    public ResponseEntity<StreamingDTO> saveStreaming(@RequestBody StreamingDTO streaming){
         StreamingDTO streamingDTO = streamingService.saveStreaming(streaming);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Streaming Saved with success. " + streamingDTO.getName());
+        return ResponseEntity.status(HttpStatus.CREATED).body(streamingDTO);
 
     }
 
