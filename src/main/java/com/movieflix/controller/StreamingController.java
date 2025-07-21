@@ -20,7 +20,7 @@ public class StreamingController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StreamingDTO>> getAllStreamings(){
+    public ResponseEntity<List<StreamingDTO>> getAllStreaming(){
         List<StreamingDTO> streamings = streamingService.findAll();
         return ResponseEntity.ok(streamings);
     }
