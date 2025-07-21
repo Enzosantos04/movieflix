@@ -35,7 +35,7 @@ public class CategoryController {
     public ResponseEntity<?> getCategoryById(@PathVariable Long id){
        if(categoryService.getCategoryById(id) != null){
            CategoryDTO categoryDTO = categoryService.getCategoryById(id);
-           return ResponseEntity.status(HttpStatus.FOUND).body(categoryDTO);
+           return ResponseEntity.ok(categoryDTO);
        }else{
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category Not Found");
        }
@@ -45,7 +45,7 @@ public class CategoryController {
     public ResponseEntity<?> deleteCategoryById(@PathVariable Long id){
         if(categoryService.getCategoryById(id) != null){
             categoryService.deleteById(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Category deleted with success");
+            return ResponseEntity.noContent().build();
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category Not Found");
         }
