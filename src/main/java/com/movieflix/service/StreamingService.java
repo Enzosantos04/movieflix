@@ -21,7 +21,7 @@ public class StreamingService {
         this.streamingMapper = streamingMapper;
     }
 
-    public List<StreamingDTO> getAllStreaming(){
+    public List<StreamingDTO> findAll(){
         List<Streaming>  streaming = streamingRepository.findAll();
         return streaming.stream()
                 .map(streamingMapper::map)
