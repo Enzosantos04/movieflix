@@ -1,31 +1,44 @@
 package com.movieflix.service;
 
 
+import com.movieflix.dto.CategoryDTO;
 import com.movieflix.entity.Category;
+import com.movieflix.mapper.CategoryMapper;
 import com.movieflix.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
+    private final CategoryMapper categoryMapper;
     private CategoryRepository categoryRepository;
 
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;
+        this.categoryMapper = categoryMapper;
     }
 
-    public List<Category> findAll(){
-        return categoryRepository.findAll();
+    public List<CategoryDTO> findAll(){
+        List<Category> categories = categoryRepository.findAll();
+        return categories.stream()
+                .map(categoryMapper::map)
+                .collect(Collectors.toList());
     }
 
-    public Category saveCategory(Category category){
-     return categoryRepository.save(category);
+    public CategoryDTO saveCategory(CategoryDTO categoryDTO){
+     Category newCategory = categoryMapper.map(categoryDTO);
+     newCategory = categoryRepository.save(newCategory);
+     return categoryMapper.map(newCategory);
+
     }
 
-    public Optional<Category> getCategoryById(Long id){
-        return categoryRepository.findById(id);
+    public CategoryDTO getCategoryById(Long id){
+        Optional<Category> categoriesById = categoryRepository.findById(id);
+        return categoriesById.map(categoryMapper::map).orElse(null);
+
     }
 
     public void deleteById(Long id){
