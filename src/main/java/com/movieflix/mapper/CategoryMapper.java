@@ -1,4 +1,4 @@
-package com.movieflix.repository;
+package com.movieflix.mapper;
 
 import com.movieflix.dto.CategoryDTO;
 import com.movieflix.entity.Category;
