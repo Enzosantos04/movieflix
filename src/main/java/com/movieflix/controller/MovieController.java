@@ -54,7 +54,7 @@ public class MovieController {
 
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateStreamingById(@PathVariable Long id, @RequestBody MovieDTO movie){
+    public ResponseEntity<?> updateMovieById(@PathVariable Long id, @RequestBody MovieDTO movie){
         if (movieService.getMovieById(id) != null ){
             MovieDTO movieDTO = movieService.updateMovieById(id, movie);
             return ResponseEntity.ok(movieDTO);
