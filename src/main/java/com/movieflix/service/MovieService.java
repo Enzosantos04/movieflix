@@ -1,6 +1,7 @@
 package com.movieflix.service;
 
 import com.movieflix.dto.MovieDTO;
+import com.movieflix.entity.Category;
 import com.movieflix.entity.Movie;
 import com.movieflix.mapper.MovieMapper;
 import com.movieflix.repository.MovieRepository;
@@ -43,6 +44,25 @@ public class MovieService {
 
     public void deleteMovieById(Long id){
         movieRepository.deleteById(id);
+    }
+
+    public MovieDTO updateMovieById(Long id, MovieDTO movieDTO){
+      Optional<Movie> existingMovie = movieRepository.findById(id);
+      if(existingMovie.isPresent()){
+          Movie updatedMovie = movieMapper.map(movieDTO);
+          updatedMovie.setId(id);
+          Movie movieSaved = movieRepository.save(updatedMovie);
+          return movieMapper.map(movieSaved);
+      }
+
+      return null;
+    }
+
+    public List<MovieDTO> findMovieByCategory(Long categoryId){
+        List<Movie> moviesByCategory = movieRepository.findMovieByCategories_Id(categoryId);
+        return moviesByCategory.stream()
+                .map(movieMapper::map)
+                .collect(Collectors.toList());
     }
 
 
