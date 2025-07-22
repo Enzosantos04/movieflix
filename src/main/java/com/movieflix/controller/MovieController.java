@@ -51,4 +51,25 @@ public class MovieController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Movie Not Found");
         }
     }
+
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateStreamingById(@PathVariable Long id, @RequestBody MovieDTO movie){
+        if (movieService.getMovieById(id) != null ){
+            MovieDTO movieDTO = movieService.updateMovieById(id, movie);
+            return ResponseEntity.ok(movieDTO);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Movie Not Found");
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<MovieDTO>> findByCategory(@RequestParam Long category){
+        if(movieService.findMovieByCategory(category) != null){
+            List<MovieDTO> movieDTO = movieService.findMovieByCategory(category);
+            return ResponseEntity.ok(movieDTO);
+        }else{
+            return ResponseEntity.noContent().build();
+        }
+    }
 }
