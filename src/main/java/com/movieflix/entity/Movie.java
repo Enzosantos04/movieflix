@@ -47,7 +47,7 @@ public class Movie {
 
     @ManyToMany
     //streaming_category guarda a relacao entre filemes e streamings
-    @JoinTable(name = "streaming_category",
+    @JoinTable(name = "movie_streaming",
             joinColumns =  @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "streaming_id")
     )
