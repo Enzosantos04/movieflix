@@ -1,29 +1,25 @@
 package com.movieflix.service;
 
 import com.movieflix.dto.MovieDTO;
-import com.movieflix.entity.Category;
 import com.movieflix.entity.Movie;
 import com.movieflix.mapper.MovieMapper;
-import com.movieflix.repository.CategoryRepository;
 import com.movieflix.repository.MovieRepository;
-import com.movieflix.repository.StreamingRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
     private final MovieRepository movieRepository;
     private final MovieMapper movieMapper;
-    private final CategoryRepository categoryRepository;
-    private final StreamingRepository streamingRepository;
 
-    public MovieService(MovieRepository movieRepository, MovieMapper movieMapper, CategoryRepository categoryRepository, StreamingRepository streamingRepository) {
+
+    public MovieService(MovieRepository movieRepository, MovieMapper movieMapper) {
         this.movieRepository = movieRepository;
         this.movieMapper = movieMapper;
-        this.categoryRepository = categoryRepository;
-        this.streamingRepository = streamingRepository;
+
     }
 
     public List<MovieDTO> findAll(){
@@ -38,6 +34,15 @@ public class MovieService {
         Movie newMovie = movieMapper.map(movieDTO);
         newMovie = movieRepository.save(newMovie);
         return movieMapper.map(newMovie);
+    }
+
+    public MovieDTO getMovieById(Long id){
+        Optional<Movie> movies = movieRepository.findById(id);
+        return movies.map(movieMapper::map).orElse(null);
+    }
+
+    public void deleteMovieById(Long id){
+        movieRepository.deleteById(id);
     }
 
 
