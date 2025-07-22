@@ -30,4 +30,25 @@ public class MovieController {
         List<MovieDTO> movieDTOS = movieService.findAll();
         return ResponseEntity.ok(movieDTOS);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getMovieById(@PathVariable Long id){
+        if(movieService.getMovieById(id) != null){
+            MovieDTO movieDTO = movieService.getMovieById(id);
+            return ResponseEntity.ok(movieDTO);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Movie Not Found.");
+
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteMovieById(@PathVariable Long id){
+        if(movieService.getMovieById(id) != null){
+            movieService.deleteMovieById(id);
+            return ResponseEntity.noContent().build();
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Movie Not Found");
+        }
+    }
 }
