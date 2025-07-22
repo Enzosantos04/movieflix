@@ -36,7 +36,6 @@ private final StreamingMapper streamingMapper;
         movie.setDescription(movieDTO.getDescription());
         movie.setRating(movieDTO.getRating());
         movie.setReleaseDate(movieDTO.getReleaseDate());
-        movie.setCreatedAt(movieDTO.getCreatedAt());
         //converter de LIST CategoryDTO para category
         if(movieDTO.getCategories() != null){
             List<Category> categories = movieDTO.getCategories()
@@ -69,7 +68,6 @@ private final StreamingMapper streamingMapper;
         movieDTO.setDescription(movie.getDescription());
         movieDTO.setRating(movie.getRating());
         movieDTO.setReleaseDate(movie.getReleaseDate());
-        movieDTO.setCreatedAt(movie.getCreatedAt());
 
         // converter de List<Category> para List<CategoryDTO>
         if (movie.getCategories() != null) {

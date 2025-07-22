@@ -1,6 +1,7 @@
 package com.movieflix.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,11 +16,10 @@ public class MovieDTO {
     private Long id;
     private String title;
     private String description;
+    //annotation para mudar o padrao da data.
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate releaseDate;
     private double rating;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
-
     private List<CategoryDTO> categories;
     private List<StreamingDTO> streamings;
 
