@@ -3,6 +3,7 @@ package com.movieflix.controller;
 
 import com.movieflix.dto.StreamingDTO;
 import com.movieflix.service.StreamingService;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,15 @@ public class StreamingController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Streaming Not Found");
         }
     }
-
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateStreamingById(@PathVariable Long id, @RequestBody StreamingDTO streaming){
+        if(streamingService.getStreamingById(id)!= null){
+            StreamingDTO streamingDTO = streamingService.updateStreamingById(id, streaming);
+            return ResponseEntity.ok(streamingDTO);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Streaming Not Found");
+        }
+    }
 
 
 
