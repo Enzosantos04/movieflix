@@ -42,6 +42,17 @@ public class CategoryService {
     }
 
     public void deleteById(Long id){
-         categoryRepository.deleteById(id);
+        categoryRepository.deleteById(id);
+    }
+
+    public CategoryDTO updateCategoryById(Long id, CategoryDTO categoryDTO){
+        Optional<Category> existingCategory = categoryRepository.findById(id);
+        if(existingCategory.isPresent()){
+            Category updatedCategory = categoryMapper.map(categoryDTO);
+            updatedCategory.setId(id);
+            Category categorySaved = categoryRepository.save(updatedCategory);
+            return categoryMapper.map(categorySaved);
+        }
+        return null;
     }
 }

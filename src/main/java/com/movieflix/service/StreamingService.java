@@ -44,4 +44,15 @@ public class StreamingService {
     public void deleteStreamingById(Long id){
         streamingRepository.deleteById(id);
     }
+
+    public StreamingDTO updateStreamingById(Long id, StreamingDTO streamingDTO){
+        Optional<Streaming> existingStreaming = streamingRepository.findById(id);
+        if(existingStreaming.isPresent()){
+            Streaming updatedStreaming = streamingMapper.map(streamingDTO);
+            updatedStreaming.setId(id);
+            Streaming streamingSaved = streamingRepository.save(updatedStreaming);
+            return streamingMapper.map(streamingSaved);
+        }
+        return null;
+    }
 }
