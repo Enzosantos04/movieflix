@@ -50,4 +50,14 @@ public class CategoryController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category Not Found");
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateCategoryById(@PathVariable Long id, @RequestBody CategoryDTO category){
+        if(categoryService.getCategoryById(id) != null){
+            CategoryDTO categoryDTO = categoryService.updateCategoryById(id, category);
+            return ResponseEntity.ok(categoryDTO);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category Not Found");
+        }
+    }
 }
