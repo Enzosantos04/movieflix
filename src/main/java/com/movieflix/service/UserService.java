@@ -4,6 +4,6 @@ import com.movieflix.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsersService {
+public class UserService {
     private final UserRepository usersRepository;
 }
