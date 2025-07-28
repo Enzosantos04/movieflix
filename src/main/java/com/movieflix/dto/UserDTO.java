@@ -1,4 +1,4 @@
 package com.movieflix.dto;
 
-public class UsersDTO {
+public class UserDTO {
 }

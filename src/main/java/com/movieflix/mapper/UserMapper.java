@@ -1,4 +1,4 @@
 package com.movieflix.mapper;
 
-public class UsersMapper {
+public class UserMapper {
 }
