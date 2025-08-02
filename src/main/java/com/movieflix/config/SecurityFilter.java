@@ -21,6 +21,11 @@ public class SecurityFilter extends OncePerRequestFilter {
     private final TokenService tokenService;
 
     @Override
+    // Método que é chamado para filtrar as requisições HTTP
+    // Esse método é chamado uma vez por requisição, garantindo que o filtro seja aplicado corretamente
+    // O método doFilterInternal é responsável por interceptar as requisições HTTP e verificar
+    // se o token JWT está presente e é válido. Se for, ele adiciona as informações do usuário ao contexto de segurança.
+    // Se o token não estiver presente ou não for válido, a requisição continua sem autenticação.
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         // Verifica se o cabeçalho Authorization(postman) está presente e começa com "Bearer"
@@ -37,7 +42,9 @@ public class SecurityFilter extends OncePerRequestFilter {
             // Se o token for válido, adiciona as informações do usuário ao request
             if(optionalJWTUserData.isPresent()){
                 JWTUserData userData = optionalJWTUserData.get();
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userData, null);
+                // Cria um objeto UsernamePasswordAuthenticationToken com as informações do usuário,
+                // sem senha e sem autoridades (roles)
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userData, null, null);
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
 
