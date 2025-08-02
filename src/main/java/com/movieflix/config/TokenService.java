@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 public class TokenService {
     // chave secreta para assinar o token JWT, porem vou fazer como enviroment variable no meu aplication.properties
-    @Value("${flix.security.secret}") // anotacao do spring para pegar o valor da variavel de ambiente e passar para a variavel secret
+    @Value("JWT_KEY") // anotacao do spring para pegar o valor da variavel de ambiente e passar para a variavel secret
     private String secret;
     //metodo para gerar o token JWT
     public String generateToken(User user) {
