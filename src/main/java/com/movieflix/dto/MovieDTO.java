@@ -2,6 +2,7 @@ package com.movieflix.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.List;
 @Data
 public class MovieDTO {
     private Long id;
+    @NotEmpty(message = "Title cannot be empty")
     private String title;
     private String description;
     //annotation para mudar o padrao da data.

@@ -3,6 +3,7 @@ package com.movieflix.controller;
 
 import com.movieflix.dto.StreamingDTO;
 import com.movieflix.service.StreamingService;
+import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class StreamingController {
     }
 
     @PostMapping
-    public ResponseEntity<StreamingDTO> saveStreaming(@RequestBody StreamingDTO streaming){
+    public ResponseEntity<StreamingDTO> saveStreaming(@Valid @RequestBody StreamingDTO streaming){
         StreamingDTO streamingDTO = streamingService.saveStreaming(streaming);
         return ResponseEntity.status(HttpStatus.CREATED).body(streamingDTO);
 
@@ -53,7 +54,7 @@ public class StreamingController {
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateStreamingById(@PathVariable Long id, @RequestBody StreamingDTO streaming){
+    public ResponseEntity<?> updateStreamingById(@PathVariable Long id, @Valid @RequestBody StreamingDTO streaming){
         if(streamingService.getStreamingById(id)!= null){
             StreamingDTO streamingDTO = streamingService.updateStreamingById(id, streaming);
             return ResponseEntity.ok(streamingDTO);

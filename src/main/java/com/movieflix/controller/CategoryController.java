@@ -3,6 +3,7 @@ package com.movieflix.controller;
 import com.movieflix.dto.CategoryDTO;
 
 import com.movieflix.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> saveCategory(@RequestBody CategoryDTO category){
+    public ResponseEntity<CategoryDTO> saveCategory(@Valid @RequestBody CategoryDTO category){
         CategoryDTO categoryDTO = categoryService.saveCategory(category);
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryDTO);
 
@@ -52,7 +53,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCategoryById(@PathVariable Long id, @RequestBody CategoryDTO category){
+    public ResponseEntity<?> updateCategoryById(@PathVariable Long id, @Valid  @RequestBody CategoryDTO category){
         if(categoryService.getCategoryById(id) != null){
             CategoryDTO categoryDTO = categoryService.updateCategoryById(id, category);
             return ResponseEntity.ok(categoryDTO);

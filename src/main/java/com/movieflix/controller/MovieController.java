@@ -3,6 +3,7 @@ package com.movieflix.controller;
 
 import com.movieflix.dto.MovieDTO;
 import com.movieflix.service.MovieService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class MovieController {
 
 
     @PostMapping
-    public ResponseEntity<MovieDTO> saveMovie(@RequestBody MovieDTO movie){
+    public ResponseEntity<MovieDTO> saveMovie(@Valid @RequestBody MovieDTO movie){
         MovieDTO movieDTO = movieService.saveMovie(movie);
         return ResponseEntity.status(HttpStatus.CREATED).body(movieDTO);
     }
@@ -54,7 +55,7 @@ public class MovieController {
 
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateMovieById(@PathVariable Long id, @RequestBody MovieDTO movie){
+    public ResponseEntity<?> updateMovieById(@PathVariable Long id, @Valid @RequestBody MovieDTO movie){
         if (movieService.getMovieById(id) != null ){
             MovieDTO movieDTO = movieService.updateMovieById(id, movie);
             return ResponseEntity.ok(movieDTO);
