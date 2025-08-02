@@ -1,5 +1,6 @@
 package com.movieflix.config;
 
+import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // autoriza as requisições HTTP e organiza as rotas
                 .authorizeHttpRequests(authorize -> authorize
+                        // permite que o usuário acesse a rota de erro, caso passe o token invalido mas esteja logado
+                        // me joga para a rota de erro
+                        .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         // da a permissao do usuario acessar a rota criacao de usuario
                         //e a rota de login
                         .requestMatchers(HttpMethod.POST, "/movieflix/auth/register").permitAll()
