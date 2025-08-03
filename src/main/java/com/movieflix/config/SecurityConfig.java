@@ -39,7 +39,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/movieflix/auth/login").permitAll()
                         //para qualquer outra requisição, é necessário estar autenticado
                         .requestMatchers(HttpMethod.GET, "/api/api-docs/**").permitAll() // permite acesso à documentação da API
-                        .requestMatchers(HttpMethod.GET, "/swagger/**").permitAll() // permite acesso ao Swagger UI
+                        .requestMatchers(HttpMethod.GET, "/swagger/swagger-ui/**").permitAll() // permite acesso ao Swagger UI
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) // adiciona o filtro de segurança antes do filtro de autenticação padrão
