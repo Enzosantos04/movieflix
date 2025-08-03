@@ -19,12 +19,6 @@ import java.util.Map;
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
 
-    private final View error;
-
-    public ApplicationControllerAdvice(View error) {
-        this.error = error;
-    }
-
     //@ExceptionHandler é uma anotação que indica que o método irá tratar uma exceção específica
     // Nesse caso, o método irá tratar a exceção UsernameOrPasswordInvalidException
     @ResponseStatus(HttpStatus.BAD_REQUEST)
