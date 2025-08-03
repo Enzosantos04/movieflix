@@ -12,12 +12,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/movieflix/category")
-public class CategoryController {
+public class CategoryController implements CategoryInterface {
     private CategoryService categoryService;
 
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
+
+
 
     @GetMapping()
     public ResponseEntity<List<CategoryDTO>> getAllCategories(){

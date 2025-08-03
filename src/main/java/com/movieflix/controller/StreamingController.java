@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/movieflix/streaming")
-public class StreamingController {
+public class StreamingController implements StreamingInterface{
 
     private final StreamingService streamingService;
 
